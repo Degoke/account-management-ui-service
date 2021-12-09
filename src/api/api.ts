@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios'
 import initializeAxios from './axiosSetup'
 import { axiosRequestConfiguration } from './config'
 
-const baseUrl = 'http://localhost:8000'
+const baseUrl = process.env.REACT_APP_API_URI || 'http://localhost:8000'
 
 const axiosInstance = initializeAxios(axiosRequestConfiguration)
 
