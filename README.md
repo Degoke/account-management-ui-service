@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# live site uri
+https://degoke-account-management-app.netlify.app/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### This Project was bootstrapped with CRA, heres how to install it locally
 
 ## Available Scripts
 
