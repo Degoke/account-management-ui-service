@@ -2,3 +2,11 @@
   margin-left: 15vw;
   padding: 0 2rem 2rem;
 }
+
+@media all and (max-width: 899px) {
+    .content {
+        margin: auto;
+        padding: 0 0 2rem;
+        width: 95vw;
+    }
+}

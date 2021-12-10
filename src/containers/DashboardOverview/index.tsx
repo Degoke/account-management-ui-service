@@ -79,7 +79,7 @@ const DashboardOverview: React.FC<Props> = ({
       <h1>Hello {user?.name}</h1>
       <p>Welcome to your dashboard</p>
       <Stack spacing={3}>
-        <Stack spacing={3} direction={{ sm: 'column', md: 'row' }}>
+        <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
           <Paper elevation={3} sx={{ p: 2 }}>
             <h2>Wallet Balance</h2>
             <p>₦{user?.walletBalance}</p>

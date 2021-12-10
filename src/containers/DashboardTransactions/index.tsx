@@ -7,7 +7,7 @@ const DashboardTransactions = () => {
   return (
     <>
       <h1>Transactions</h1>
-      <Stack spacing={3} direction={{ sm: 'column', md: 'row' }}>
+      <Stack spacing={3} direction={{ xs: 'column', md: 'row' }}>
         <SearchUser />
         <SendTransaction />
       </Stack>

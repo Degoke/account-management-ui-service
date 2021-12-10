@@ -50,7 +50,11 @@ const SearchUser = () => {
             Search
           </Button>
           {isLoading && <Spinner />}
-          {isError && <p>User Not Found</p>}
+          {isError && (
+            <Paper elevation={3} sx={{ p: 2 }}>
+              <p>User Not Found</p>
+            </Paper>
+          )}
           {isSuccess && (
             <Paper elevation={3} sx={{ p: 2 }}>
               <List>

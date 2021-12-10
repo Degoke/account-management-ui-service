@@ -8,6 +8,9 @@ import {
   ListItemText,
   Snackbar,
   Alert,
+  Hidden,
+  Tabs,
+  Tab,
 } from '@mui/material'
 import styles from './style.module.css'
 import { useQuery } from 'react-query'
@@ -59,7 +62,10 @@ const Dashboard = () => {
       <Drawer
         anchor="left"
         variant="permanent"
-        sx={{ '& .MuiDrawer-paper': { width: '15vw' } }}
+        sx={{
+          '& .MuiDrawer-paper': { width: '15vw' },
+          display: { xs: 'none', md: 'block' },
+        }}
       >
         <Toolbar />
         <Divider />
@@ -76,7 +82,24 @@ const Dashboard = () => {
         </MenuList>
       </Drawer>
       <div className={styles.content}>
-        <Toolbar />
+        <Hidden smDown>
+          <Toolbar />
+        </Hidden>
+        <Hidden mdUp>
+          <Tabs>
+            <Tab
+              label="overview"
+              value="overview"
+              onClick={() => setPage('overview')}
+            />
+            <Tab
+              label="transactions"
+              value="transactions"
+              onClick={() => setPage('transactions')}
+            />
+            <Tab label="logout" value="logout" onClick={logout} />
+          </Tabs>
+        </Hidden>
         <main>
           {(errorUser ||
             errorSentTransactions ||
