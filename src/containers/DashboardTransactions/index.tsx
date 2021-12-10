@@ -1,13 +1,17 @@
 import React from 'react'
 import SearchUser from '../SearchUser'
 import SendTransaction from '../SendTransactions'
+import { Stack } from '@mui/material'
 
 const DashboardTransactions = () => {
   return (
-    <div>
-      <SearchUser />
-      <SendTransaction />
-    </div>
+    <>
+      <h1>Transactions</h1>
+      <Stack spacing={3} direction={{ sm: 'column', md: 'row' }}>
+        <SearchUser />
+        <SendTransaction />
+      </Stack>
+    </>
   )
 }
 

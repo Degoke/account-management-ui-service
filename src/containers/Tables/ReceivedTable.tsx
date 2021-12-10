@@ -30,7 +30,9 @@ const ReceivedTable: React.FC<Props> = ({ transactions }) => {
           <TableBody>
             {transactions?.map((transaction) => (
               <TableRow key={transaction?._id}>
-                <TableCell>{transaction?.createdAt}</TableCell>
+                <TableCell>
+                  {new Date(transaction?.createdAt).toLocaleString()}
+                </TableCell>
                 <TableCell>{transaction?.sender.name}</TableCell>
                 <TableCell>₦{transaction?.amount}</TableCell>
               </TableRow>

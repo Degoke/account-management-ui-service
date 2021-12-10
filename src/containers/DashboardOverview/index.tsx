@@ -10,6 +10,7 @@ import {
   Alert,
   Tabs,
   Tab,
+  Stack,
 } from '@mui/material'
 import { User } from '../../types/user'
 import { Transaction } from '../../types/transaction'
@@ -75,57 +76,69 @@ const DashboardOverview: React.FC<Props> = ({
           <Alert severity="success">Success</Alert>
         </Snackbar>
       )}
-      <p>Hello {user?.name}</p>
+      <h1>Hello {user?.name}</h1>
       <p>Welcome to your dashboard</p>
-      <Paper elevation={3}>
-        <p>Wallet Balance</p>
-        <p>₦{user?.walletBalance}</p>
-      </Paper>
-      <Paper elevation={3}>
-        <p>Payment Ids</p>
+      <Stack spacing={3}>
+        <Stack spacing={3} direction={{ sm: 'column', md: 'row' }}>
+          <Paper elevation={3} sx={{ p: 2 }}>
+            <h2>Wallet Balance</h2>
+            <p>₦{user?.walletBalance}</p>
+          </Paper>
+          <Paper elevation={3} sx={{ p: 2 }}>
+            <h2>Payment Ids</h2>
 
-        <List>
-          {user?.paymentId.map((id) => (
-            <ListItem key={id}>
-              <ListItemText>{id}</ListItemText>
-              <Button
-                variant="outlined"
-                size="small"
-                onClick={() => mutateDelete('id')}
-              >
-                {loadingDelete ? <Spinner /> : 'Delete'}
-              </Button>
-            </ListItem>
-          ))}
-        </List>
-        <Fab onClick={() => mutateGenerate()}>
-          {loadingGenerate ? <Spinner /> : 'Add'}
-        </Fab>
-      </Paper>
-      <Paper elevation={3}>
-        <p>Personal Info</p>
+            <List>
+              {user?.paymentId.map((id) => (
+                <ListItem key={id}>
+                  <Stack direction="row" spacing={4}>
+                    <ListItemText>{id}</ListItemText>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      onClick={() => mutateDelete(id)}
+                    >
+                      {loadingDelete ? <Spinner /> : 'Delete'}
+                    </Button>
+                  </Stack>
+                </ListItem>
+              ))}
+            </List>
+            <Fab onClick={() => mutateGenerate()}>
+              {loadingGenerate ? <Spinner /> : 'Add'}
+            </Fab>
+          </Paper>
+          <Paper elevation={3} sx={{ p: 2 }}>
+            <h2>Personal Info</h2>
 
-        <List>
-          <ListItem>
-            <ListItemText>{user?.name}</ListItemText>
-            <ListItemText>{user?.email}</ListItemText>
-            <ListItemText>{user?.phoneNumber}</ListItemText>
-          </ListItem>
-        </List>
-      </Paper>
-      <Paper elevation={3}>
-        <Tabs>
-          <Tab label="Sent Transactions" onClick={() => setTable('sent')} />
-          <Tab
-            label="Received Transactions"
-            onClick={() => setTable('received')}
-          />
-        </Tabs>
-        {table === 'sent' && <SentTable transactions={sentTransactions} />}
-        {table === 'received' && (
-          <ReceivedTable transactions={receivedTransactions} />
-        )}
-      </Paper>
+            <List>
+              <ListItem>
+                <ListItemText>Name: {user?.name}</ListItemText>
+              </ListItem>
+              <ListItem>
+                <ListItemText>Email Address: {user?.email}</ListItemText>
+              </ListItem>
+              <ListItem>
+                <ListItemText>Phone Number: {user?.phoneNumber}</ListItemText>
+              </ListItem>
+            </List>
+          </Paper>
+        </Stack>
+
+        <Paper elevation={3} sx={{ p: 2 }}>
+          <h2>Transaction History</h2>
+          <Tabs>
+            <Tab label="Sent Transactions" onClick={() => setTable('sent')} />
+            <Tab
+              label="Received Transactions"
+              onClick={() => setTable('received')}
+            />
+          </Tabs>
+          {table === 'sent' && <SentTable transactions={sentTransactions} />}
+          {table === 'received' && (
+            <ReceivedTable transactions={receivedTransactions} />
+          )}
+        </Paper>
+      </Stack>
     </div>
   )
 }

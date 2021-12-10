@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material'
+import { Button, TextField, Paper, Stack } from '@mui/material'
 import React, { useContext } from 'react'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
@@ -34,8 +34,9 @@ const SendTransaction: React.FC = () => {
       receiversPaymentId: '',
       amount: 0,
     },
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       mutate(values)
+      resetForm()
     },
   })
 
@@ -62,34 +63,41 @@ const SendTransaction: React.FC = () => {
           <Alert severity="success">Transfer Successful</Alert>
         </Snackbar>
       )}
-      <form onSubmit={handleSubmit}>
-        <TextField
-          type="text"
-          label="PaymentId"
-          name="receiversPaymentId"
-          value={receiversPaymentId}
-          onChange={handleChange}
-          error={!!errors.receiversPaymentId && !!touched.receiversPaymentId}
-          helperText={errors.receiversPaymentId}
-          onBlur={handleBlur}
-          required
-        />
-        <TextField
-          type="number"
-          label="Amount"
-          name="amount"
-          value={amount}
-          onChange={handleChange}
-          error={!!errors.amount && !!touched.amount}
-          helperText={errors.amount}
-          onBlur={handleBlur}
-          required
-        />
+      <Paper elevation={3} sx={{ p: 2 }}>
+        <form onSubmit={handleSubmit}>
+          <Stack spacing={2}>
+            <h2>Send Funds</h2>
+            <TextField
+              type="text"
+              label="PaymentId"
+              name="receiversPaymentId"
+              value={receiversPaymentId}
+              onChange={handleChange}
+              error={
+                !!errors.receiversPaymentId && !!touched.receiversPaymentId
+              }
+              helperText={errors.receiversPaymentId}
+              onBlur={handleBlur}
+              required
+            />
+            <TextField
+              type="number"
+              label="Amount"
+              name="amount"
+              value={amount}
+              onChange={handleChange}
+              error={!!errors.amount && !!touched.amount}
+              helperText={errors.amount}
+              onBlur={handleBlur}
+              required
+            />
 
-        <Button type="submit" variant="contained" size="large">
-          {isLoading ? <Spinner /> : 'Send'}
-        </Button>
-      </form>
+            <Button type="submit" variant="contained" size="large">
+              {isLoading ? <Spinner /> : 'Send'}
+            </Button>
+          </Stack>
+        </form>
+      </Paper>
     </div>
   )
 }

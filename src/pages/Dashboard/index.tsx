@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import {
   Toolbar,
   Drawer,
@@ -26,7 +26,13 @@ type TransactionReturnType = {
 }
 
 const Dashboard = () => {
-  const { details } = useContext(authContext)
+  const { details, checkAuth } = useContext(authContext)
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (!checkAuth()) {
+      navigate('/login')
+    }
+  }, [])
   const { isError: errorUser, data: user } = useQuery(['user', details], () =>
     apiGet<User>('/users/user')
   )
@@ -42,8 +48,6 @@ const Dashboard = () => {
     )
 
   const [page, setPage] = useState<'overview' | 'transactions'>('overview')
-
-  const navigate = useNavigate()
 
   const logout = () => {
     localStorage.removeItem(constants.token)

@@ -1,44 +1,27 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Signup from './pages/Signup'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
-import { authContext } from './context/authContext'
+import { ProvideAuth } from './context/authContext'
 
 const queryClient = new QueryClient()
 
 function App(): React.ReactElement {
-  const { checkAuth } = useContext(authContext)
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              checkAuth() ? (
-                <Navigate to="/dashboard" />
-              ) : (
-                <Navigate to="/register" />
-              )
-            }
-          />
-          <Route
-            path="/register"
-            element={checkAuth() ? <Navigate to="/dashboard" /> : <Signup />}
-          />
-          <Route
-            path="/login"
-            element={checkAuth() ? <Navigate to="/dashboard" /> : <Login />}
-          />
-          <Route
-            path="/dashboard"
-            element={checkAuth() ? <Dashboard /> : <Navigate to="/login" />}
-          />
-        </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <ProvideAuth>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Navigate to="/dashboard" />} />
+            <Route path="/register" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </ProvideAuth>
   )
 }
 
